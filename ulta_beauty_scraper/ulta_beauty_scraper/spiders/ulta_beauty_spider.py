@@ -18,45 +18,99 @@ class UltaSpider(scrapy.Spider):
 
 		# Get the urls for all items on the page
 		items = response.xpath('//div[@id="product-category-cont"]//ul/li')
-		urls = ["https://www.ulta.com"+i.xpath('.//a/@href').extract()[0] for i in items]
 
 		# Number of items/page
-		items_per_page = len(urls)
+		items_per_page = len(items)
 
 		# Product list pages to crawl
 		max_page = floor(total_items / items_per_page) * items_per_page
 		num_lis = list(range(items_per_page,max_page+1,items_per_page))
 		pages_of_items = ["https://www.ulta.com/skin-care-cleansers?N=2794&No="+str(n) for n in num_lis]
 
+		# for every page, get the list of urls for all products
+		for page in pages_of_items[:1]:
+			yield scrapy.Request(url = page, callback=self.prase_results_page)		
 
-		with open(".test-ulta-2.txt", "w") as f:
-			f.write("Pages to crawl\n"+"-"*40+'\n')
-			for u in pages_of_items:
-				f.write(u+'\n')
-			f.write("\nItem urls to crawl"+"-"*40+'\n')
-			for i in urls:
-				f.write(i+'\n')
+	# Parse individual results page to get urls of product pages
+	def prase_results_page(self, response):
+		# print('\n\n\n\n'+'%'*10+'Inside Parse Results'+'%'*10+'\n\n\n\n')
+		prod_urls = response.xpath('//div[@id="product-category-cont"]//ul/li')
+		prod_urls = ["https://www.ulta.com"+i.xpath('.//a/@href').extract()[0] for i in prod_urls]
+		
+		for prod in prod_urls[:1]:
+			yield scrapy.Request(url=prod, callback=self.parse_prod_page)
 
+	# Parse individual product page to get data on each product
+	def parse_prod_page(self, response):
+		print('\n\n\n'+'%'*10+'Inside Parse Prod Page'+'%'*10+'\n\n\n')
+		
+		# Brand
+		try:
+			brand = response.xpath('//a[@class="Anchor ProductMainSection__brandAnchor"]/text()').extract()[0]
+		except IndexError:
+			brand = "None"
 
-# class BudgetSpider(Spider):
-#     name = "budget_spider"
-#     allowed_urls = ['https://www.the-numbers.com/']
-#     start_urls = ['https://www.the-numbers.com/movie/budgets/all/' + str(100*i+1) for i in range(55)]
-#
-#     def parse(self, response):
-#         rows = response.xpath('//*[@id="page_filling_chart"]/center/table//tr')
-#         for row in rows:
-#             RDate = row.xpath('./td[2]/a/text()').extract_first()
-#             Title = row.xpath('./td[3]/b/a/text()').extract_first()
-#             PBudget = row.xpath('./td[4]/text()').extract_first()
-#             DomesticG = row.xpath('./td[5]/text()').extract_first()
-#             WorldwideG = row.xpath('./td[6]/text()').extract_first()
-#
-#             item = BudgetItem()
-#             item['RDate'] = RDate
-#             item['Title'] = Title
-#             item['PBudget'] = PBudget
-#             item['DomesticG'] = DomesticG
-#             item['WorldwideG'] = WorldwideG
-#
-#             yield item
+		# Product name
+		try:
+			name = response.xpath('//span[@class="ProductMainSection__productName"]/text()').extract()[0]
+		except IndexError:
+			name = "None"
+
+		# Ingredients
+		try:
+			ingredients = response.xpath('//div[@class="ProductDetail__ingredients"]/div[2]//text()').extract()[0]
+		except IndexError:
+			ingredients = "None"
+
+		# Product size and size unit
+		try:
+			size_info = response.xpath('//p[@class="ProductMainSection__itemNumber"]/text()').extract()
+			size = size_info[0]
+			size_unit = size_info[2]
+		except IndexError:
+			size_info = "None"
+			size_unit = "None"
+
+		# Price
+		try:
+			price = response.xpath('//span[@class="ProductPricingPanel__price"]/text()').extract()[0]
+		except IndexError:
+			price = "None"
+
+		# Description 
+		try:
+			description = response.xpath('//div[@class="ProductDetail__productDetails"]/div[2]//text()').extract()[0]
+		except IndexError:
+			description = "None"
+
+		# Count of reviews
+		try:
+			review_count = response.xpath('//div[@class="RatingPanel__reviewsCount"]/text()').extract()[0].replace("(","").replace(")","")
+		except IndexError:
+			review_count = "None"
+
+		# Category breadcrumbs
+		try:
+			categories = response.xpath('//div[@class="Breadcrumb"]/ul/li/a/text()').extract()
+		except IndexError:
+			categories = "None"
+
+		# put everything in an item
+		item = UltaBeautyScraperItem()
+		item["brand_name"] = brand
+		item["product_name"] = name
+		item["ingredients"] = ingredients
+		item["default_size_value"] = size
+		item["default_size_unit"] = size_unit
+		item["default_price"] = price
+		item["categories"] = categories
+		item["product_description"] = description
+		item["review_count"] = review_count
+		# item["review_avg_rating"] = 
+		# item["url"] = 
+
+		# test it out
+		print('\n\n'+'~'*10)
+		print(item)
+		print('~'*10+'\n\n')
+
