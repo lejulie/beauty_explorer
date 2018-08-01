@@ -1,17 +1,23 @@
 import scrapy
-from math import floor
 from ulta_beauty_scraper.items import UltaBeautyScraperItem
+from math import floor
+import re
 
 class UltaSpider(scrapy.Spider):
 	name = "ulta_spider"
 	allowed_urls = ['https://www.ulta.com/']
-	start_urls = ['https://www.ulta.com/skin-care-cleansers?N=2794']
+	start_urls = ['https://www.ulta.com/skin-care-cleansers?N=2794','https://www.ulta.com/skin-care-moisturizers?N=2796',\
+	'https://www.ulta.com/skin-care-treatment-serums?N=27cs','https://www.ulta.com/skin-care-eye-treatments?N=270k',\
+	'https://www.ulta.com/skin-care-suncare?N=27fe','https://www.ulta.com/skin-care-supplements?N=2712',\
+	'https://www.ulta.com/skin-care-mother-baby?N=2715','https://www.ulta.com/makeup-face?N=26y3',\
+	'https://www.ulta.com/makeup-eyes?N=26yd','https://www.ulta.com/makeup-lips?N=26yq',\
+	'https://www.ulta.com/hair-shampoo-conditioner?N=27ih','https://www.ulta.com/hair-treatment?N=26xy',\
+	'https://www.ulta.com/hair-styling-products?N=26xf','https://www.ulta.com/hair-color?N=26xs',\
+	'https://www.ulta.com/bath-body-bath-shower?N=26uy','https://www.ulta.com/bath-body-body-moisturizers?N=26v3',\
+	'https://www.ulta.com/bath-body-hand-foot-care?N=27ic','https://www.ulta.com/bath-body-personal-care?N=27i3',\
+	'https://www.ulta.com/bath-body-suncare?N=276b']
 
 	def parse(self, response):
-		# Count of pages listing products for this category
-		# pg_count = response.xpath('//span[@class="upper-limit"]/text()').extract()[0].replace("of ","")
-		# pg_count = int(pg_count)
-
 		# Count of total items in this category
 		total_items = response.xpath('//h2[@class="search-res-title"]/span[1]/text()').extract()[0]
 		total_items = int(total_items)
@@ -25,13 +31,12 @@ class UltaSpider(scrapy.Spider):
 		# Product list pages to crawl
 		max_page = floor(total_items / items_per_page) * items_per_page
 		num_lis = list(range(0,max_page+1,items_per_page))
-		pages_of_items = ["https://www.ulta.com/skin-care-cleansers?N=2794&No="+str(n) for n in num_lis]
+		base_url = re.sub("&.*","",response.request.url)
+		pages_of_items = [base_url+"&No="+str(n) for n in num_lis]
 
 		# for every page, get the list of urls for all products
-		###################################
-		# When this is ready, remove [:1] #
-		###################################
-		for page in pages_of_items[:1]:
+		for page in pages_of_items:
+			#print("\n\n\n"+"Item page to crawl: ",page+'\n\n\n')
 			yield scrapy.Request(url = page, callback=self.prase_results_page)		
 
 	# Parse individual results page to get urls of product pages
@@ -114,12 +119,6 @@ class UltaSpider(scrapy.Spider):
 		item["review_count"] = review_count
 		item["review_avg_rating"] = review_avg_rating
 		item["url"] = response.request.url
-
-		# for debugging
-		with open('test-ulta-8.txt','a') as f:
-			for x in item:
-				f.write("%s: %s\n" % (x, item[x]))
-			f.write("-"*20+'\n')
 
 		yield item
 
