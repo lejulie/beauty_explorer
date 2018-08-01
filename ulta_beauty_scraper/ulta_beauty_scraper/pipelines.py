@@ -8,7 +8,7 @@ from scrapy.exporters import CsvItemExporter
 
 class UltaBeautyScraperPipeline(object):
 	def __init__(self):
-		self.filename = 'ulta_skincare_first_item_all_pages.csv'
+		self.filename = 'ulta_skincare.csv'
 
 	def open_spider(self, spider):
 		self.csvfile = open(self.filename, 'wb')
