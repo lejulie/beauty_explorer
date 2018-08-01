@@ -24,16 +24,18 @@ class UltaSpider(scrapy.Spider):
 
 		# Product list pages to crawl
 		max_page = floor(total_items / items_per_page) * items_per_page
-		num_lis = list(range(items_per_page,max_page+1,items_per_page))
+		num_lis = list(range(0,max_page+1,items_per_page))
 		pages_of_items = ["https://www.ulta.com/skin-care-cleansers?N=2794&No="+str(n) for n in num_lis]
 
 		# for every page, get the list of urls for all products
-		for page in pages_of_items[:3]:
+		###################################
+		# When this is ready, remove [:1] #
+		###################################
+		for page in pages_of_items[:1]:
 			yield scrapy.Request(url = page, callback=self.prase_results_page)		
 
 	# Parse individual results page to get urls of product pages
 	def prase_results_page(self, response):
-		# print('\n\n\n\n'+'%'*10+'Inside Parse Results'+'%'*10+'\n\n\n\n')
 		prod_urls = response.xpath('//div[@id="product-category-cont"]//ul/li')
 		prod_urls = ["https://www.ulta.com"+i.xpath('.//a/@href').extract()[0] for i in prod_urls]
 		
@@ -42,8 +44,6 @@ class UltaSpider(scrapy.Spider):
 
 	# Parse individual product page to get data on each product
 	def parse_prod_page(self, response):
-		#print('\n\n'+'%'*10+'Inside Parse Prod Page'+'%'*10+'\n\n')
-		
 		# Brand
 		try:
 			brand = response.xpath('//a[@class="Anchor ProductMainSection__brandAnchor"]/text()').extract()[0]
@@ -115,8 +115,12 @@ class UltaSpider(scrapy.Spider):
 		item["review_avg_rating"] = review_avg_rating
 		item["url"] = response.request.url
 
-		# test it out
-		with open('test-ulta-6.txt','a') as f:
+		# for debugging
+		with open('test-ulta-8.txt','a') as f:
 			for x in item:
 				f.write("%s: %s\n" % (x, item[x]))
 			f.write("-"*20+'\n')
+
+		yield item
+
+
