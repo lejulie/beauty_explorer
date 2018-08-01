@@ -28,7 +28,7 @@ class UltaSpider(scrapy.Spider):
 		pages_of_items = ["https://www.ulta.com/skin-care-cleansers?N=2794&No="+str(n) for n in num_lis]
 
 		# for every page, get the list of urls for all products
-		for page in pages_of_items[:1]:
+		for page in pages_of_items[:3]:
 			yield scrapy.Request(url = page, callback=self.prase_results_page)		
 
 	# Parse individual results page to get urls of product pages
@@ -37,12 +37,12 @@ class UltaSpider(scrapy.Spider):
 		prod_urls = response.xpath('//div[@id="product-category-cont"]//ul/li')
 		prod_urls = ["https://www.ulta.com"+i.xpath('.//a/@href').extract()[0] for i in prod_urls]
 		
-		for prod in prod_urls[:1]:
+		for prod in prod_urls:
 			yield scrapy.Request(url=prod, callback=self.parse_prod_page)
 
 	# Parse individual product page to get data on each product
 	def parse_prod_page(self, response):
-		print('\n\n\n'+'%'*10+'Inside Parse Prod Page'+'%'*10+'\n\n\n')
+		#print('\n\n'+'%'*10+'Inside Parse Prod Page'+'%'*10+'\n\n')
 		
 		# Brand
 		try:
@@ -89,6 +89,12 @@ class UltaSpider(scrapy.Spider):
 		except IndexError:
 			review_count = "None"
 
+		# Review avg rating
+		try:
+			review_avg_rating = response.xpath('//div[@class="RatingPanel"]/div/div[2]/label/text()').extract()[0]
+		except IndexError:
+			review_avg_rating = "None"
+
 		# Category breadcrumbs
 		try:
 			categories = response.xpath('//div[@class="Breadcrumb"]/ul/li/a/text()').extract()
@@ -106,11 +112,11 @@ class UltaSpider(scrapy.Spider):
 		item["categories"] = categories
 		item["product_description"] = description
 		item["review_count"] = review_count
-		# item["review_avg_rating"] = 
-		# item["url"] = 
+		item["review_avg_rating"] = review_avg_rating
+		item["url"] = response.request.url
 
 		# test it out
-		print('\n\n'+'~'*10)
-		print(item)
-		print('~'*10+'\n\n')
-
+		with open('test-ulta-6.txt','a') as f:
+			for x in item:
+				f.write("%s: %s\n" % (x, item[x]))
+			f.write("-"*20+'\n')
