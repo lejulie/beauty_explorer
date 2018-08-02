@@ -8,7 +8,7 @@ ulta = pd.read_csv(sys.argv[1])
 ulta = ulta[ulta['ingredients'] != "None"]
 
 # all ingredients to lowercase
-ulta['ingredients'] = ulta['ingredients'].apply(lambda s: s.lower())
+ulta['ingredients'] = ulta['ingredients'].apply(lambda s: str(s).lower())
 
 # remove duplicates
 ulta = ulta.drop_duplicates(subset=['product_name','brand_name'])
