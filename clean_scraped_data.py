@@ -20,7 +20,7 @@ ulta = ulta.dropna(subset=['brand_name', 'product_name', 'ingredients','url'])
 ulta['categories'] = ulta['categories'].apply(lambda s: s.replace(","," > "))
 
 # convert stars
-ulta['review_avg_rating'] = ulta['review_avg_rating'].apply(lambda s: str(s)[:3] if str(s) != "nan" else "-")
+ulta['review_avg_rating'] = ulta['review_avg_rating'].apply(lambda s: s[:3] if str(s) != "nan" else "-")
 
 # write to a fresh csv
 ulta.to_csv(sys.argv[2])
