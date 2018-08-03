@@ -43,4 +43,5 @@ Thumbs.db
 # Python #
 ##########
 __pycache__/
+__init__
 *.cfg
