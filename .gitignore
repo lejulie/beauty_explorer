@@ -48,6 +48,5 @@ __init__.py
 
 # R #
 #####
-*.RData
-*.RHistory
-
+.R*
+/rsconnect*
