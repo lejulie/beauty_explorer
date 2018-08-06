@@ -28,14 +28,29 @@ server <- function(input, output, session) {
   })
   
   # Bad brand histogram
-  output$bad_brand_histogram = renderPlot(
-    ggplot(bad_brands(), aes(x = reorder(brand_name,-count), y = count)) +
-      geom_bar(stat = "identity") +
-      xlab("Brand") + 
-      ylab("Count of Products") + 
-      theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  output$bad_brand_chart = renderPlotly({
+    x = factor(bad_brands()$brand_name, levels = bad_brands()[["brand_name"]])
+    plot_ly(
+      data = bad_brands(),
+      x = ~x,#~as.character(brand_name),
+      y = ~count,
+      name = "test",
+      type = "bar") %>%
+      layout(
+        xaxis = list(title = "Brand Name", tickangle = -45),
+        yaxis = list(title = "Count"),
+        margin = list(b = 150, l=80),
+        barmode = 'group')}
   )
   
+  # Data table
+  output$raw_table = DT::renderDataTable(
+    {dplyr::select(sub_prods(),top_level_category, secondary_category, 
+                   brand_name, product_name, ingredients)},
+    colnames = c("Top Level Category", "Subcategory", "Brand Name", 
+                 "Product Name","Ingredients")
+    )
+
   # # Update sub category list
   # observeEvent(input$top_cat, {
   #   new_list = cat_map %>%
@@ -51,10 +66,4 @@ server <- function(input, output, session) {
   #     )
   # })
   
-  # Data table
-  output$raw_table = DT::renderDataTable(
-    dplyr::select(sub_prods(),top_level_category, secondary_category, brand_name,
-           product_name, ingredients)
-    )
-
 }

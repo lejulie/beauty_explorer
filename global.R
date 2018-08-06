@@ -5,8 +5,7 @@ library(dplyr)
 library(ggplot2)
 library(shinydashboard)
 library(DT)
-# library(stringr)
-# library(plotly)
+library(plotly)
 
 # Read the data
 products = read.csv("./data/ulta_cleaned.csv")
@@ -31,9 +30,6 @@ top_cats = c("All", as.character(top_cats))
 
 # List of shady ingredients
 bad = read.csv("data/bad_ingredients.csv", stringsAsFactors = FALSE)
-#filter(products, str_detect(ingredients, bad[bad$family == x, 2]))
 
 ##### Global Variables #####
 n_bars = 30 # max # of bars in the bar plots
-
-##### Global Functions #####

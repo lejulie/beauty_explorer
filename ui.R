@@ -38,8 +38,8 @@ ui <- dashboardPage(
                 ),
                 
                 column(width = 8,
-                   #textOutput("testText")
-                   plotOutput("bad_brand_histogram")
+                       h3("Count of Products with Undesierable Ingredients"),
+                       plotlyOutput("bad_brand_chart")
                 )
               ),
               fluidRow(
