@@ -1,5 +1,5 @@
 ui <- dashboardPage(
-  skin = "yellow",
+  skin = "green",
   dashboardHeader(title = "Beauty Explorer",
                   titleWidth = 200),
   ## Sidebar content
@@ -42,6 +42,7 @@ ui <- dashboardPage(
                        plotlyOutput("bad_brand_chart")
                 )
               ),
+              br(),
               fluidRow(
                 column(width=12,DT::dataTableOutput("raw_table"))
               )

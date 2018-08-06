@@ -32,4 +32,6 @@ top_cats = c("All", as.character(top_cats))
 bad = read.csv("data/bad_ingredients.csv", stringsAsFactors = FALSE)
 
 ##### Global Variables #####
-n_bars = 30 # max # of bars in the bar plots
+n_bars = 30        # max # of bars in the bar plots
+c_bars = '#BF9ACA' # bar fill color
+c_bg     = '#EDF0F5' # page bg color

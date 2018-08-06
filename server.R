@@ -34,14 +34,18 @@ server <- function(input, output, session) {
       data = bad_brands(),
       x = ~x,#~as.character(brand_name),
       y = ~count,
+      #text = ~count, textposition = 'auto',
       name = "test",
-      type = "bar") %>%
+      type = "bar",
+      marker = list(color = c_bars)) %>%   #rgb(255,184,209)'
       layout(
         xaxis = list(title = "Brand Name", tickangle = -45),
         yaxis = list(title = "Count"),
         margin = list(b = 150, l=80),
-        barmode = 'group')}
-  )
+        barmode = 'group',
+        plot_bgcolor = c_bg,
+        paper_bgcolor = c_bg)
+  })
   
   # Data table
   output$raw_table = DT::renderDataTable(
