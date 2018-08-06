@@ -22,11 +22,6 @@ products = products[,c(2,12,13,1,8,7,6,5,4,3,10,9,14)]
 # Get the list of all categories
 top_cats = sort(unique(products$top_level_category))
 top_cats = c("All", as.character(top_cats))
-# secondary_cats = sort(unique(products$secondary_category))
-# secondary_cats = c("All", as.character(secondary_cats))
-# cat_map = products %>%
-#   dplyr::select(top_level_category, secondary_category) %>%
-#   unique()
 
 # List of shady ingredients
 bad = read.csv("data/bad_ingredients.csv", stringsAsFactors = FALSE)

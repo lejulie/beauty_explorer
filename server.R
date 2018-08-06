@@ -3,7 +3,7 @@ server <- function(input, output, session) {
   # Products selected by category and checkboxes
   sub_prods = reactive({
     if(length(input$bad_ingredients) == 0){
-      NULL}
+      products}
     else{
       if(input$top_cat == "All"){
         filter(products, grepl(paste(bad[bad$family %in% input$bad_ingredients, 
@@ -32,7 +32,7 @@ server <- function(input, output, session) {
     x = factor(bad_brands()$brand_name, levels = bad_brands()[["brand_name"]])
     plot_ly(
       data = bad_brands(),
-      x = ~x,#~as.character(brand_name),
+      x = ~x,
       y = ~count,
       #text = ~count, textposition = 'auto',
       name = "test",
@@ -44,30 +44,26 @@ server <- function(input, output, session) {
         margin = list(b = 150, l=80),
         barmode = 'group',
         plot_bgcolor = c_bg,
-        paper_bgcolor = c_bg)
+        paper_bgcolor = c_bg) %>%
+      config(displayModeBar = F, showLink = F) %>%
+      layout(height = 450)
   })
   
   # Data table
-  output$raw_table = DT::renderDataTable(
+  output$bad_sub_table = DT::renderDataTable(
     {dplyr::select(sub_prods(),top_level_category, secondary_category, 
                    brand_name, product_name, ingredients)},
-    colnames = c("Top Level Category", "Subcategory", "Brand Name", 
-                 "Product Name","Ingredients")
+    colnames = c("Category", "Subcategory", "Brand", 
+                 "Product","Ingredients"),
+    options = list(searching = TRUE)
     )
-
-  # # Update sub category list
-  # observeEvent(input$top_cat, {
-  #   new_list = cat_map %>%
-  #     filter(top_level_category == input$top_cat)
-  #   new_list = sort(unique(new_list$secondary_category))
-  #   updateSelectInput(
-  #     session,
-  #     "sec_cat",
-  #     choices = new_list,
-  #     label = "Category",
-  #     if(input$sec_cat %in% new_list){selected = input$sec_cat}
-  #     else{selected = new_list[1]}
-  #     )
-  # })
   
+  output$raw_table = DT::renderDataTable(
+    {dplyr::select(products,top_level_category, secondary_category, 
+                   brand_name, product_name, review_count, review_avg_rating,
+                   ingredients)},
+    colnames = c("Category", "Subcategory", "Brand", "Product","Review Count",
+                 "Average Review (1-5)","Ingredients"),
+    options = list(searching = TRUE)
+  )
 }
