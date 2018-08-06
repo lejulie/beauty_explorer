@@ -20,12 +20,28 @@ ui <- dashboardPage(
       # Explorer
       tabItem(tabName = "explore",
               h2("Beauty Product Explorer"),
-              selectInput("top_cat", label = "Top Level Category", 
-                  choices = top_cats, 
-                  selected = top_cats[1]),
-              selectInput("sec_cat", label = "Category", 
-                  choices = secondary_cats,
-                  selected = secondary_cats[2])
+              fluidRow(
+                column(width = 4,
+                  selectInput("top_cat", label = "Top Level Category", 
+                      choices = top_cats, 
+                      selected = top_cats[1]),
+                  
+                  # selectInput("sec_cat", label = "Category",
+                  #     choices = secondary_cats,
+                  #     selected = secondary_cats[2]),
+                  
+                  checkboxGroupInput("bad_ingredients", label = "Ingredients", 
+                      choices = bad[,1],
+                      selected = bad[1,1])
+                ),
+                
+                column(width = 8,
+                   textOutput("testText")
+                )
+              ),
+              fluidRow(
+                column(width=12,DT::dataTableOutput("raw_table"))
+              )
       ) #end explorer
     ) #end tab items
   ) #end dashboard body
