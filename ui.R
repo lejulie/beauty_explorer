@@ -1,8 +1,10 @@
 ui <- dashboardPage(
   skin = "yellow",
-  dashboardHeader(title = "Beauty Explorer"),
+  dashboardHeader(title = "Beauty Explorer",
+                  titleWidth = 200),
   ## Sidebar content
   dashboardSidebar(
+    width = 200,
     sidebarMenu(
       menuItem("Welcome", tabName = "welcome", icon = icon("home")),
       menuItem("Explore", tabName = "explore", icon = icon("compass"))
@@ -28,7 +30,7 @@ ui <- dashboardPage(
                   
                   # selectInput("sec_cat", label = "Category",
                   #     choices = secondary_cats,
-                  #     selected = secondary_cats[2]),
+                  #     selected = secondary_cats[1]),
                   
                   checkboxGroupInput("bad_ingredients", label = "Ingredients", 
                       choices = bad[,1],
@@ -36,7 +38,8 @@ ui <- dashboardPage(
                 ),
                 
                 column(width = 8,
-                   textOutput("testText")
+                   #textOutput("testText")
+                   plotOutput("bad_brand_histogram")
                 )
               ),
               fluidRow(
