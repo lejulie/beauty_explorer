@@ -49,7 +49,7 @@ ui <- dashboardPage(
             ),
             br(),
             fluidRow(
-              column(width = 4,
+              column(width = 3,
                      wellPanel(
                 selectInput("top_cat", label = h4("Top Level Category"), 
                     choices = top_cats, 
@@ -59,7 +59,7 @@ ui <- dashboardPage(
                     choices = bad[,1],
                     selected = bad[1,1]))),
               
-              column(width = 8,
+              column(width = 9,
                      h3("Count of Products by Top 30 Brands"),
                      plotlyOutput("bad_brand_chart"))),
             
@@ -172,26 +172,26 @@ target="_blank", href='https://www.huffingtonpost.com/entry/oxybenzone-chemical-
       
       ##### About #####
       tabItem(tabName = "about",
-              h2("About"),
-              br(),
-              fluidRow(
-              column(width = 8,
-                div(class = "my-class", 
-                  p('My name is Julie Levine.  I’m a graduate from the School of 
-                    Engineering and Applied Science at the University of 
-                    Pennsylvania.  In a past life, I was a marketer and product 
-                    manager for tech startups ',
-                    tags$a(target="_blank", href='https://www.factual.com/','Fatual'),' and ',
-                    tags$a(target="_blank", href='https://www.datadoghq.com/','Datadog.'),
-                    'Presently, I’m a Data Science Fellow at ', 
-                    tags$a(target="_blank", href='https://nycdatascience.com/','NYC Data 
-                    Science Academy.'),'Check out more of my projects on the ',
-                    tags$a(target="_blank", href=
-    'https://nycdatascience.com/blog/author/lejulie/','NYC Data Science Academy
-                    blog'),' and on ',
-                    tags$a(target="_blank", href="https://github.com/lejulie?tab=repositories",
-                    "github."),".  Learn more about me on ",tags$a(target="_blank", href=
-                    "https://www.linkedin.com/in/lejulieb/","LinkedIn."))))))
+      h2("About"),
+      br(),
+      fluidRow(
+      column(width = 8,
+        div(class = "my-class", 
+          p('My name is Julie Levine.  I’m a graduate from the School of 
+            Engineering and Applied Science at the University of 
+            Pennsylvania.  In a past life, I was a marketer and product 
+            manager for tech startups ',
+            tags$a(target="_blank", href='https://www.factual.com/','Fatual'),' and ',
+            tags$a(target="_blank", href='https://www.datadoghq.com/','Datadog.'),
+            'Presently, I’m a Data Science Fellow at ', 
+            tags$a(target="_blank", href='https://nycdatascience.com/','NYC Data 
+            Science Academy.'),'Check out more of my projects on the ',
+            tags$a(target="_blank", href=
+'https://nycdatascience.com/blog/author/lejulie/','NYC Data Science Academy
+            blog'),' and on ',
+            tags$a(target="_blank", href="https://github.com/lejulie?tab=repositories",
+            "github."),".  Learn more about me on ",tags$a(target="_blank", href=
+            "https://www.linkedin.com/in/lejulieb/","LinkedIn."))))))
     ) #end tab items
   ) #end dashboard body
 )
