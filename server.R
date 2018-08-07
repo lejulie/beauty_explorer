@@ -1,5 +1,6 @@
 server <- function(input, output, session) {
   
+  ##### Explorer #####
   # Products selected by category and checkboxes
   sub_prods = reactive({
     if(length(input$bad_ingredients) == 0){
@@ -8,12 +9,12 @@ server <- function(input, output, session) {
       if(input$top_cat == "All"){
         filter(products, grepl(paste(bad[bad$family %in% input$bad_ingredients, 
                                          2], collapse = '|'),
-                               ingredients))}
+                               ingredients,ignore.case = TRUE))}
       else{
         filter(products, top_level_category == input$top_cat) %>%
           # filter(., secondary_category == input$sec_cat) %>%
           filter(., grepl(paste(bad[bad$family %in% input$bad_ingredients, 
-                                    2], collapse = '|'),
+                                    2], collapse = '|',ignore.case = TRUE),
                           ingredients))}}
   })
   
@@ -51,18 +52,21 @@ server <- function(input, output, session) {
   # Data table
   output$bad_sub_table = DT::renderDataTable(
     {dplyr::select(sub_prods(),top_level_category, secondary_category, 
-                   brand_name, product_name, ingredients)},
+                   brand_name, product_name, ingredients,url_links)},
     colnames = c("Category", "Subcategory", "Brand", 
-                 "Product","Ingredients"),
-    options = list(searching = TRUE)
+                 "Product","Ingredients","URL"),
+    options = list(searching = TRUE),
+    escape = FALSE
     )
   
+  ##### All Data Table #####
   output$raw_table = DT::renderDataTable(
     {dplyr::select(products,top_level_category, secondary_category, 
                    brand_name, product_name, review_count, review_avg_rating,
-                   ingredients)},
+                   ingredients, url_links)},
     colnames = c("Category", "Subcategory", "Brand", "Product","Review Count",
-                 "Average Review (1-5)","Ingredients"),
-    options = list(searching = TRUE)
+                 "Average Review (1-5)","Ingredients","URL"),
+    options = list(searching = TRUE),
+    escape = FALSE
   )
 }

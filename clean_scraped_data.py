@@ -8,9 +8,6 @@ ulta = pd.read_csv(sys.argv[1])
 # remove any rows without ingredients
 ulta = ulta[ulta['ingredients'] != "None"]
 
-# all ingredients to lowercase
-ulta['ingredients'] = ulta['ingredients'].apply(lambda s: str(s).lower())
-
 # remove duplicates
 ulta = ulta.drop_duplicates(subset=['product_name','brand_name'])
 
@@ -28,6 +25,9 @@ ulta['secondary_category'] = ulta['categories'].apply(lambda s: re.sub(pattern2,
 
 # convert stars
 ulta['review_avg_rating'] = ulta['review_avg_rating'].apply(lambda s: s[:3] if str(s) != "nan" else "-")
+
+# replace ratings of zero with "-"
+ulta['review_avg_rating'] = ulta['review_avg_rating'].apply(lambda s: '-' if s == 0 else s)
 
 # write to a fresh csv
 ulta.to_csv(sys.argv[2])
