@@ -8,6 +8,7 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Welcome", tabName = "welcome", icon = icon("home")),
       menuItem("Explore", tabName = "explore", icon = icon("compass")),
+      menuItem("By Brand", tabName = "by_brand", icon = icon("shopping-bag")),
       menuItem("Ingredients", tabName = "questionable", 
                icon = icon("exclamation-triangle")),
       menuItem("All Products", tabName = "all_products", icon = icon("table")),
@@ -68,6 +69,32 @@ ui <- dashboardPage(
                      h3("Product List"),
                      DT::dataTableOutput("bad_sub_table")))
       ), #end explorer
+      
+      ##### By Brand #####
+      tabItem(tabName = "by_brand",
+              h2("Explore by Brand"),
+              fluidRow(
+                column(width = 12,
+                       div(class = 'my-class',
+                           p("Copy")))
+                           ),
+              br(),
+              fluidRow(
+                column(width = 3,
+                       wellPanel(
+                         selectInput("brand_select", label = h4("Brand"), 
+                                     choices = brands, 
+                                     selected = brands[1]))),
+                
+                column(width = 9,
+                       h3("Count of Products with Given Ingredients"),
+                       plotlyOutput("ingredients_by_brand_chart"))),
+              
+              fluidRow(
+                column(width=12,
+                       h3("Product List"),
+                       DT::dataTableOutput("ingredients_by_brand_table")))
+                           ), #end by brand
       
       ###### Commonly Scrutinized Ingredients #####
       tabItem(tabName = "questionable",

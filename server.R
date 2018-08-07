@@ -37,7 +37,7 @@ server <- function(input, output, session) {
       y = ~count,
       #text = ~count, textposition = 'auto',
       type = "bar",
-      marker = list(color = c_bars)) %>%   #rgb(255,184,209)'
+      marker = list(color = c_bars)) %>%
       layout(
         xaxis = list(title = "", tickangle = -45),
         yaxis = list(title = ""),
@@ -58,6 +58,50 @@ server <- function(input, output, session) {
     options = list(searching = TRUE),
     escape = FALSE
     )
+  
+  ##### By Brand #####
+  
+  # Data for ingredients by brand plot
+  ing_by_brand = reactive({
+    by_brand[,c("rn",clean(input$brand_select))]
+  })
+  
+  # Data for ingredients by brand table
+  prods_by_brand = reactive({
+    products[products$brand_name == input$brand_select,]
+  })
+  
+  # By brand histogram
+  output$ingredients_by_brand_chart = renderPlotly({
+    x = factor(ing_by_brand()$rn, levels = ing_by_brand()[["rn"]])
+    y = ing_by_brand()[,2]
+    print("Y:")
+    print(y)
+    plot_ly(
+      data = ing_by_brand(),
+      x = ~x,
+      y = ~y,
+      type = "bar",
+      marker = list(color = c_bars)) %>%
+      layout(
+        xaxis = list(title = "", tickangle = -45),
+        yaxis = list(title = ""),
+        margin = list(b = 150, l=80),
+        barmode = 'group',
+        plot_bgcolor = c_bg,
+        paper_bgcolor = c_bg) %>%
+      config(displayModeBar = F, showLink = F) %>%
+      layout(height = 450)
+  })
+  
+  # By brand data table
+  output$ingredients_by_brand_table = DT::renderDataTable(
+    {dplyr::select(prods_by_brand(),top_level_category, secondary_category, 
+                  product_name, ingredients,url_links)},
+    colnames = c("Category","Subcategory","Product","Ingredients","URL"),
+    options = list(searching = TRUE),
+    escape = FALSE
+  )
   
   ##### All Data Table #####
   output$raw_table = DT::renderDataTable(
