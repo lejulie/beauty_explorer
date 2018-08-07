@@ -76,7 +76,10 @@ ui <- dashboardPage(
               fluidRow(
                 column(width = 12,
                        div(class = 'my-class',
-                           p("Copy")))
+                           p("Select a band below to see the count of products
+                             which contain commonly scrutinized ingredients.  
+                             See the full list of products by the selected
+                             brand in the table below.")))
                            ),
               br(),
               fluidRow(
@@ -87,12 +90,12 @@ ui <- dashboardPage(
                                      selected = brands[1]))),
                 
                 column(width = 9,
-                       h3("Count of Products with Given Ingredients"),
+                       h3("Count of Products with By Family of Ingredients"),
                        plotlyOutput("ingredients_by_brand_chart"))),
               
               fluidRow(
                 column(width=12,
-                       h3("Product List"),
+                       h3("Complete Product List"),
                        DT::dataTableOutput("ingredients_by_brand_table")))
                            ), #end by brand
       
