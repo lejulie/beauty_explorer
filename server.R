@@ -35,12 +35,11 @@ server <- function(input, output, session) {
       x = ~x,
       y = ~count,
       #text = ~count, textposition = 'auto',
-      name = "test",
       type = "bar",
       marker = list(color = c_bars)) %>%   #rgb(255,184,209)'
       layout(
-        xaxis = list(title = "Brand Name", tickangle = -45),
-        yaxis = list(title = "Count"),
+        xaxis = list(title = "", tickangle = -45),
+        yaxis = list(title = ""),
         margin = list(b = 150, l=80),
         barmode = 'group',
         plot_bgcolor = c_bg,
