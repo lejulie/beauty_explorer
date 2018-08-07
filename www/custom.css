@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+font-family: 'Roboto';          
+text-align: justify;
+font-size: 14px;
+}
+
+h1 {
+font-family: 'Roboto';
+font-weight: 500;
+line-height: 1.1;
+}
+
+h2, h3, h4 {
+font-family: 'Roboto';
+}

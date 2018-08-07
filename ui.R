@@ -14,6 +14,9 @@ ui <- dashboardPage(
       menuItem("About", tabName = "about", icon = icon("certificate")))
   ),
   dashboardBody(
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+    ),
     tabItems(
       ##### Welcome #####
       tabItem(tabName = "welcome",
@@ -57,7 +60,7 @@ ui <- dashboardPage(
                     selected = bad[1,1]))),
               
               column(width = 8,
-                     h3("Count of Products by Brand"),
+                     h3("Count of Products by Top 30 Brands"),
                      plotlyOutput("bad_brand_chart"))),
             
             fluidRow(
