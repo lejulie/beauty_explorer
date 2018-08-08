@@ -21,7 +21,7 @@ ui <- dashboardPage(
     tabItems(
       ##### Welcome #####
       tabItem(tabName = "welcome",
-            h2("What's beauty made of?"),
+            h2("What's Beauty Made Of?"),
             br(),
             fluidRow(
             column(width = 8,
@@ -61,7 +61,7 @@ ui <- dashboardPage(
                     selected = bad[1,1]))),
               
               column(width = 9,
-                     h3("Count of Products by Top 30 Brands"),
+                     h3("Count of Products for Top 30 Brands"),
                      plotlyOutput("bad_brand_chart"))),
             
             fluidRow(
@@ -90,7 +90,7 @@ ui <- dashboardPage(
                                      selected = brands[1]))),
                 
                 column(width = 9,
-                       h3("Count of Products with By Family of Ingredients"),
+                       h3("Count of Products by Family of Ingredients"),
                        plotlyOutput("ingredients_by_brand_chart"))),
               
               fluidRow(
