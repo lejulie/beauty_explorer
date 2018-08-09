@@ -7,15 +7,14 @@ server <- function(input, output, session) {
       products}
     else{
       if(input$top_cat == "All"){
-        filter(products, grepl(paste(bad[bad$family %in% input$bad_ingredients, 
-                                         2], collapse = '|'),
-                               ingredients,ignore.case = TRUE))}
+        filter(products,grepl(paste(bad[bad$family %in% input$bad_ingredients,2],
+                          collapse = '|'),ingredients,ignore.case = TRUE))}
       else{
-        filter(products, top_level_category == input$top_cat) %>%
-          # filter(., secondary_category == input$sec_cat) %>%
-          filter(., grepl(paste(bad[bad$family %in% input$bad_ingredients, 
-                                    2], collapse = '|',ignore.case = TRUE),
-                          ingredients))}}
+        sub2 = filter(products, top_level_category == input$top_cat) 
+        # print(paste("dim after cat filter:",dim(sub))) #
+        sub2 = sub2 %>%
+          filter(., grepl(paste(bad[bad$family %in% input$bad_ingredients,2],
+                           collapse = '|'),ingredients,ignore.case = TRUE))}}
   })
   
   # Data for bad brand plot

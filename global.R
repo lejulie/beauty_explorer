@@ -26,6 +26,7 @@ products$url_links = paste0("<a target='_blank', href='",products$url,
 # Get the list of all categories
 top_cats = sort(unique(products$top_level_category))
 top_cats = c("All", as.character(top_cats))
+top_cats = top_cats[-2]
 
 # Read the list of commonly scrutinized ingredients
 bad = read.csv("./data/bad_ingredients.csv", stringsAsFactors = FALSE)
