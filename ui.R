@@ -150,7 +150,8 @@ However, some people may exhibit sensitivity to some of these unlisted ingredien
                     and cosmetics which is associated with ",tags$a(
 target="_blank", href='http://wwf.panda.org/our_work/food/agriculture/about_palm_oil/environmental_impacts/',
                       'environmental issues such as deforestation.')),
-                  p(tags$b("Ingredients identified by the app:"),"Palm Oil"),
+                  p(tags$b("Ingredients identified by the app:"),"Palm Oil, Palm
+                    Kernel Oil"),
                   h4("Parabens"),
                   p(tags$b("What it is:"),"Parabens are ",tags$a(
 target="_blank", href='https://www.fda.gov/cosmetics/productsingredients/ingredients/ucm128042.htm',
