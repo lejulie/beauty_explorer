@@ -4,7 +4,9 @@ server <- function(input, output, session) {
   # Products selected by category and checkboxes
   sub_prods = reactive({
     if(length(input$bad_ingredients) == 0){
-      products}
+      if(input$top_cat == "All"){products}
+      else{filter(products, top_level_category == input$top_cat)}
+    }
     else{
       if(input$top_cat == "All"){
         filter(products,grepl(paste(bad[bad$family %in% input$bad_ingredients,2],

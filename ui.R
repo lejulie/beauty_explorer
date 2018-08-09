@@ -107,10 +107,17 @@ ui <- dashboardPage(
               column(width = 8, 
                 div(class = "my-class", 
                 p("This app makes it easy to find products with several classes 
-                  of ingredients that are commonly scrutinized.  Learn a little 
-                  more about the claims around these ingredients and how they 
-                  are identified by the app.")))
+                  of ingredients that are commonly scrutinized.  Below, see
+                  the prevalence of these ingredients and learn more 
+                  more about the claims around them and how they are identified
+                  by the app.")))
               ),
+            fluidRow(
+              column(width = 8,
+                     div(class = "my-class",
+                     img(src = "count_prods_in_family_by_category.png", 
+                         width = "100%")))
+            ),
             fluidRow(
               column(width = 8, 
                   div(class = "my-class", 

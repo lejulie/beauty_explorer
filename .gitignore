@@ -34,11 +34,12 @@
 ehthumbs.db
 Thumbs.db
 
-# Text files #
-##############
+# Text and img files #
+######################
 *.txt
 *.csv
 *.json
+*.png
 
 # Python #
 ##########
