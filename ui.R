@@ -145,14 +145,6 @@ ui <- dashboardPage(
 "fragrance" to protect trade secrets.  
 However, some people may exhibit sensitivity to some of these unlisted ingredients.'),
                   p(tags$b("Ingredients identified by the app:"),"Fragrance, Parfum"),
-                  h4("Microbeads"),
-                  p(tags$b("What they are:"),"Microbeads are small 
-                    pieces of plastic that are often included in cosmetics as 
-                    exfoliants and ",tags$a(
-target="_blank", href='https://www.npr.org/2014/05/21/313157701/why-those-tiny-microbeads-in-soap-may-pose-problem-for-great-lakes',
-                      'can pose environmental concerns.')),
-                  p(tags$b("Ingredients identified by the app:"),"Polyethylene, 
-                    Acrylates Copolymer, Microbead"),
                   h4("Palm Oil"),
                   p(tags$b("What it is:"),"Palm oil is an oil used in food products 
                     and cosmetics which is associated with ",tags$a(
