@@ -55,7 +55,8 @@ server <- function(input, output, session) {
                    brand_name, product_name, ingredients,url_links)},
     colnames = c("Category", "Subcategory", "Brand", 
                  "Product","Ingredients","URL"),
-    options = list(searching = TRUE),
+    options = list(searching = TRUE, columnDefs =
+                     list(list(className = 'dt-left', targets = 1:6))),
     escape = FALSE
     )
   
@@ -99,7 +100,8 @@ server <- function(input, output, session) {
     {dplyr::select(prods_by_brand(),top_level_category, secondary_category, 
                   product_name, ingredients,url_links)},
     colnames = c("Category","Subcategory","Product","Ingredients","URL"),
-    options = list(searching = TRUE),
+    options = list(searching = TRUE, columnDefs =
+                     list(list(className = 'dt-left', targets = 1:5))),
     escape = FALSE
   )
   
@@ -110,7 +112,8 @@ server <- function(input, output, session) {
                    ingredients, url_links)},
     colnames = c("Category", "Subcategory", "Brand", "Product","Review Count",
                  "Average Review (1-5)","Ingredients","URL"),
-    options = list(searching = TRUE),
+    options = list(searching = TRUE, columnDefs =
+                     list(list(className = 'dt-left', targets = 1:7))),
     escape = FALSE
   )
 }
