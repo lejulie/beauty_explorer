@@ -220,7 +220,7 @@ target="_blank", href='https://www.huffingtonpost.com/entry/oxybenzone-chemical-
 'https://nycdatascience.com/blog/author/lejulie/','NYC Data Science Academy
             blog'),' and on ',
             tags$a(target="_blank", href="https://github.com/lejulie?tab=repositories",
-            "github."),".  Learn more about me on ",tags$a(target="_blank", href=
+            "github."),"  Learn more about me on ",tags$a(target="_blank", href=
             "https://www.linkedin.com/in/lejulieb/","LinkedIn."))))))
     ) #end tab items
   ) #end dashboard body
