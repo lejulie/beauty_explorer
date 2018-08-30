@@ -10,7 +10,7 @@ This [web app](https://nycdatascience.com/blog/student-works/what-is-beauty-made
 
 There are a host of ingredients in cosmetics that have come under fire for allegedly posing health or environmental hazards. This analysis explores the prevalence of a few of these ingredients.  See more information on how each was identified and the alleged hazards they pose in the table below:
 
-<table border="1">
+<table>
 <thead>
 <tr>
 <th>Ingredient Family</th>
