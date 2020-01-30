@@ -40,7 +40,7 @@ by_brand = read.csv("./data/by_brand.csv")
 ##### Global Variables #####
 
 n_bars = 30        # max # of bars in the bar plots
-c_bars = '#BF9ACA' # bar fill color
+c_bars = '#5F5CA3' # bar fill color
 c_bg   = '#EDF0F5' # page bg color
 
 ##### Global Functions #####

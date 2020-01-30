@@ -1,5 +1,5 @@
 ui <- dashboardPage(
-  skin = "green",
+  skin = "purple",
   dashboardHeader(title = "Beauty Explorer",
                   titleWidth = 200),
   ## Sidebar content
