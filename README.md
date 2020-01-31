@@ -70,4 +70,4 @@ There are a host of ingredients in cosmetics that have come under fire for alleg
 
 ## About Me
 
-My name is Julie Levine. I’m a graduate from the School of Engineering and Applied Science at the University of Pennsylvania. In a past life, I was a marketer and product manager for tech startups [Fatual](https://www.factual.com/) and [Datadog](https://www.datadoghq.com/). Presently, I’m a Data Science Fellow at [NYC Data Science Academy](https://nycdatascience.com/). Check out more of my projects on the NYC Data Science Academy [blog](https://nycdatascience.com/blog/author/lejulie/). Learn more about me on [LinkedIn](https://www.linkedin.com/in/lejulieb/).
+My name is Julie Levine. I'm a data scientist, most recently at Venmo. I graduated from the School of Engineering and Applied Science at the University of Pennsylvania. In a past life, I was a marketer and product manager for tech startups Datadog and Fatual. I was also a Data Science Fellow at NYC Data Science Academy. Learn more about me on [LinkedIn](https://www.linkedin.com/in/lejulieb/).
